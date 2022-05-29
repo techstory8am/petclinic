@@ -1,0 +1,22 @@
+trigger:
+- master
+
+stages:
+-  stage :  BUILD
+   jobs:
+     - job: A1
+
+       pool:
+        vmImage: ubuntu-latest
+       steps: 
+         - task: Maven@3
+           inputs:
+             jdkVersionOption: 1.11
+             mavenPomFile: 'pom.xml'
+             publishJUnitResults: true
+             testResultsFiles: '**/surefire-reports/TEST-*.xml'
+             javaHomeOption: 'JDKVersion'
+             mavenVersionOption: 'Default'
+             mavenAuthenticateFeed: false
+             effectivePomSkip: false
+             sonarQubeRunAnalysis: false
